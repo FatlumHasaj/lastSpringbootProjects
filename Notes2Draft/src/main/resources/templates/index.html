@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes App</title>
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <h1>Notes App</h1>
+            <button class="nav-button active">
+                <i class="fas fa-sticky-note"></i> Notes
+            </button>
+            <!-- Add a logout button -->
+            <a th:href="@{/logout}" class="nav-button logout-button" style="text-decoration: none; color: inherit;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </aside>
+
+        <main class="main-content">
+            <section class="add-note-section">
+                <h2>Add a Note</h2>
+                <form id="note-form">
+                    <input type="hidden" id="note-id" value="">
+                    <input type="text" id="note-title" placeholder="Title" required>
+                    <textarea id="note-content" placeholder="Take a note..." required></textarea>
+                    <button type="submit" id="add-update-button">Add Note</button>
+                    <button type="button" id="cancel-edit-button" class="hidden">Cancel Edit</button>
+                </form>
+            </section>
+
+            <section class="my-notes-section">
+                <div class="my-notes-header">
+                    <h2><i class="fas fa-book-open"></i> My Notes</h2>
+                    <span>Recently updated</span>
+                </div>
+                <div class="notes-grid" id="notes-grid">
+                    <!-- Notes will be dynamically added here by script.js -->
+                </div>
+            </section>
+        </main>
+    </div>
+	<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

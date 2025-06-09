@@ -1,0 +1,275 @@
+:root {
+    --primary-bg: #f0f2f9; /* Light lavender background */
+    --sidebar-bg: #ffffff;
+    --nav-button-bg: #2c3e50; /* Dark blue for active nav button */
+    --nav-button-text: #ffffff;
+    --card-bg: #ffffff;
+    --text-primary: #333;
+    --text-secondary: #555;
+    --text-light: #777;
+    --accent-color: #3498db; /* A brighter blue for accents/buttons */
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --box-shadow-light: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    padding: 20px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.sidebar h1 {
+    font-size: 1.8em;
+    color: var(--nav-button-bg);
+    margin-bottom: 30px;
+    padding-left: 10px;
+}
+
+.nav-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 12px 15px;
+    background-color: transparent;
+    color: var(--text-secondary);
+    border: none;
+    border-radius: var(--border-radius);
+    text-align: left;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.nav-button i {
+    margin-right: 10px;
+    font-size: 1.1em;
+}
+
+.nav-button:hover {
+    background-color: #e9ecef;
+}
+
+.nav-button.active {
+    background-color: var(--nav-button-bg);
+    color: var(--nav-button-text);
+    font-weight: bold;
+}
+
+/* Main Content */
+.main-content {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+/* Add Note Section */
+.add-note-section {
+    background-color: var(--card-bg);
+    padding: 25px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px;
+}
+
+.add-note-section h2 {
+    font-size: 1.5em;
+    color: var(--nav-button-bg);
+    margin-bottom: 20px;
+}
+
+#note-form input[type="text"],
+#note-form textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 1em;
+    background-color: #f9f9f9;
+}
+
+#note-form textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+#note-form input[type="text"]::placeholder,
+#note-form textarea::placeholder {
+    color: #aaa;
+}
+
+
+#note-form button {
+    padding: 10px 20px;
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.2s;
+    margin-right: 10px; /* Space between buttons */
+}
+
+#note-form button:hover {
+    background-color: #2980b9;
+}
+
+#cancel-edit-button {
+    background-color: #e74c3c; /* Red for cancel */
+}
+#cancel-edit-button:hover {
+    background-color: #c0392b;
+}
+
+
+/* My Notes Section */
+.my-notes-section {
+    margin-top: 30px;
+}
+
+.my-notes-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.my-notes-header h2 {
+    font-size: 1.5em;
+    color: var(--nav-button-bg);
+}
+.my-notes-header h2 i {
+    margin-right: 8px;
+}
+
+.my-notes-header span {
+    font-size: 0.9em;
+    color: var(--text-light);
+}
+
+.notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.note-card {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow-light);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.note-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--box-shadow);
+}
+
+.note-card h3 {
+    font-size: 1.2em;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+}
+
+.note-card p {
+    font-size: 0.95em;
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    flex-grow: 1; /* Makes sure content takes available space */
+    word-break: break-word; /* Prevents long words from overflowing */
+    max-height: 100px; /* Limit height of preview */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Show ... for overflow */
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Limit to 4 lines */
+    -webkit-box-orient: vertical;
+}
+
+
+.note-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto; /* Pushes meta to the bottom */
+}
+
+.note-meta small {
+    font-size: 0.8em;
+    color: var(--text-light);
+}
+
+.note-actions button {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    font-size: 1.1em;
+    margin-left: 10px;
+    padding: 5px;
+    transition: color 0.2s;
+}
+
+.note-actions button:hover {
+    color: var(--accent-color);
+}
+.note-actions .delete-btn:hover {
+    color: #e74c3c; /* Red for delete hover */
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Responsive adjustments (optional, but good practice) */
+@media (max-width: 768px) {
+    .app-container {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+        display: flex;
+        align-items: center;
+        padding: 15px;
+    }
+    .sidebar h1 {
+        margin-bottom: 0;
+        margin-right: auto; /* Pushes nav button to the right */
+    }
+    .nav-button {
+        width: auto; /* Allow button to shrink */
+    }
+    .main-content {
+        padding: 20px;
+    }
+    .notes-grid {
+        grid-template-columns: 1fr; /* Single column on small screens */
+    }
+}

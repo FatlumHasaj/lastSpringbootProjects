@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+    <style>
+        body { background: #f3f3f3; font-family: sans-serif; display: flex; height: 100vh; align-items: center; justify-content: center; flex-direction: column; }
+        form { background: white; padding: 20px 30px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); width: 300px; }
+        h2 { margin-bottom: 20px; text-align: center; }
+        input { width: 100%; padding: 10px; box-sizing: border-box; margin-top: 8px; margin-bottom: 16px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background: #007BFF; color: white; border: none; padding: 10px; width: 100%; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .error-message { color: red; font-size: 0.9em; text-align: center; margin-bottom: 10px; display: none; }
+        .register-link { margin-top: 15px; font-size: 0.9em; }
+        .register-link a { color: #007BFF; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+<form id="loginForm">
+    <h2>Login</h2>
+    <div id="errorMessage" class="error-message"></div>
+    <label for="email">Email:</label>
+    <input type="email" name="email" id="email" required />
+
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required />
+
+    <button type="submit">Login</button>
+</form>
+
+<div class="register-link">
+    Don't have an account? <a th:href="@{/register}">Register here</a>
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const errorMessageDiv = document.getElementById('errorMessage');
+
+    const formData = new URLSearchParams();
+    formData.append('email', email);
+    formData.append('password', password);
+
+    try {
+        // Use a relative path for the API call
+        const response = await fetch('/api/users/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formData
+        });
+
+        if (response.ok) {
+            const user = await response.json();
+            if (user && user.id) {
+                // Redirect to the main app page (which is now protected)
+                window.location.href = '/index';
+            }
+        } else {
+            const errorData = await response.json();
+            errorMessageDiv.textContent = errorData.error || 'Login failed!';
+            errorMessageDiv.style.display = 'block';
+        }
+    } catch (error) {
+        errorMessageDiv.textContent = 'Error: ' + error.message;
+        errorMessageDiv.style.display = 'block';
+    }
+});
+</script>
+
+</body>
+</html>
